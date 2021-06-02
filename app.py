@@ -380,18 +380,17 @@ def ml(title, model):
 
 
 def page_search():
-    search_input = st.text_input('Tell me something...', '')
-    model, X_test_tf, y_test, y_pred, tfidf = build_model(kaggle, LinearSVC(), "test")
-    if len(search_input) > 0:
-        search_tf = tfidf.transform([search_input])
-        predictions = model.predict(search_tf)
-        emotion = predictions[0]
-        st.write(emotion)
-        response = requests.get(
-            "https://api.giphy.com/v1/gifs/random?api_key=u5zI8PiTKx0y7b6Csh5GmUdhgD0hZ315&tag={}&rating=g".format(
-                emotion))
-        image_url = response.json()["data"]["image_original_url"]
-        st.image(image_url)
+    def page_search():
+        search_input = st.text_input('Tell me something...', '')
+        if len(search_input) > 0:
+            response = requests.get("https://lit-spire-48980.herokuapp.com/{}".format(search_input))
+            emotion = response.json()["emotion"]
+            st.write(emotion)
+            response = requests.get(
+                "https://api.giphy.com/v1/gifs/random?api_key=u5zI8PiTKx0y7b6Csh5GmUdhgD0hZ315&tag={}&rating=g".format(
+                    emotion))
+            image_url = response.json()["data"]["image_original_url"]
+            st.image(image_url)
 
 
 ###
