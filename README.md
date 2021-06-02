@@ -1,1 +1,3 @@
-# brief-API
+# 🤖 Sentiments Detector
+
+This application present some models for sentiment analysis
